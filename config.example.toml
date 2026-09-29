@@ -1,115 +1,138 @@
-﻿# livetrans 閰嶇疆
-# 鎵€鏈夐」閮藉彲浠ョ渷鐣ワ紝鐪佺暐鏃剁敤浠ｇ爜閲岀殑榛樿鍊硷紙瑙?livetrans/config.py锛夈€?# 涔熷彲浠ョ敤鐜鍙橀噺瑕嗙洊锛屾牸寮?LIVETRANS_<娈靛悕>_<瀛楁鍚?锛屼緥濡?LIVETRANS_ASR_MODEL=medium
+﻿# livetrans 配置
+# 所有项都可以省略，省略时用代码里的默认值（见 livetrans/config.py）。
+# 也可以用环境变量覆盖，格式 LIVETRANS_<段名>_<字段名>，例如 LIVETRANS_ASR_MODEL=medium
 
 [audio]
-# 鎹曡幏鍝釜鎾斁璁惧鐨勫０闊炽€傜暀绌?= 绯荤粺榛樿鎾斁璁惧銆?# 涔熷彲浠ュ～鐜洖璁惧鍚嶇殑涓€閮ㄥ垎锛屾瘮濡?"鎵０鍣? / "Speakers" / "Headphones"銆?# 鐢?`python -m livetrans --devices` 鑳界湅鍒板叏閮ㄥ彲鐢ㄨ澶囧強鍏剁‘鍒囧悕瀛椼€?device = ""
-# 閫佺粰璇嗗埆鍣ㄧ殑閲囨牱鐜囷紝16k 鏄?whisper 鐨勬爣鍑嗚緭鍏ワ紝涓嶇敤鏀?sample_rate = 16000
-# 姣忔璇诲彇鐨勯煶棰戝潡闀垮害锛堢锛?block_seconds = 0.1
-# 杈撳叆澧炵泭銆傚鏋滅洿鎾０闊冲亸灏忓鑷磋瘑鍒笉绋筹紝鍙互璋冨埌 1.5 ~ 2.0
+# 捕获哪个播放设备的声音。留空 = 系统默认播放设备。
+# 也可以填环回设备名的一部分，比如 "扬声器" / "Speakers" / "Headphones"。
+# 用 `python -m livetrans --devices` 能看到全部可用设备及其确切名字。
+device = ""
+# 送给识别器的采样率，16k 是 whisper 的标准输入，不用改
+sample_rate = 16000
+# 每次读取的音频块长度（秒）
+block_seconds = 0.1
+# 输入增益。如果直播声音偏小导致识别不稳，可以调到 1.5 ~ 2.0
 gain = 1.0
 
 
 [vad]
-# 璇煶鍒ゅ畾闃堝€硷紝璋冮珮鏇粹€滀繚瀹堚€濓紙涓嶅鏄撴妸 BGM 褰撲汉澹帮級锛岃皟浣庢洿鐏垫晱
+# 语音判定阈值，调高更“保守”（不容易把 BGM 当人声），调低更灵敏
 threshold = 0.5
-# 杩炵画澶氫箙鍍忎汉澹版墠璁や负寮€濮嬭璇濓紙姣锛?min_speech_ms = 160
-# 杩炵画澶氫箙娌″０闊虫墠璁や负涓€鍙ヨ瀹岋紙姣锛夈€?# 璋冨皬 = 瀛楀箷鍑哄緱鏇村揩锛屼絾瀹规槗鎶婁富鎾崲姘旂殑鍋滈】褰撳彞鏈€屾妸鍙ュ瓙鍒囩锛?# 璋冨ぇ = 鍙ュ瓙鏇村畬鏁淬€佺炕璇戞洿鍑嗭紝浠ｄ环鏄瓧骞曟櫄涓€鐐瑰嚭鏉?min_silence_ms = 700
-# 涓€鍙ヨ瘽鏈€闀垮灏戠锛岃秴杩囧氨寮哄埗鍒囦竴鍒€锛岄伩鍏嶅瓧骞曡繜杩熶笉鍑?max_segment_seconds = 12.0
-# 姣忓彞鍓嶅悗鍚勭暀澶氬皯姣锛岄槻姝㈠悆鎺夊瓧澶村瓧灏?padding_ms = 240
-# 姣旇繖杩樼煭鐨勭鐗囩洿鎺ヤ涪寮冿紙杩囨护鍜冲椊銆侀敭鐩樸€侀紶鏍囧０锛?min_segment_seconds = 0.4
-# 銆愬叧閿」銆戠煭浜庤繖涓鏁扮殑璇煶娈靛厛鏀掔潃锛岀瓑涓嬩竴鍙ユ帴涓婂啀涓€璧烽€佺炕璇戙€?# 娌℃湁瀹冪殑璇濄€屻偛銉笺儬銇?/ 閬娿伆銇涖仸 / 銇勩仧銇犮亾銇嗐仺 / 鎬濄亜銆嶈繖绉嶄竴鏁村彞
-# 浼氳鎷嗘垚鍥涙鍒嗗埆缈昏瘧锛屾剰鎬濆叏涔便€傝皟澶?= 鍙ュ瓙鏇村畬鏁达紝浣嗗瓧骞曟洿鏅氬嚭鏉ャ€?merge_seconds = 2.5
-# 鏀掔潃鐨勭煭鍙ユ渶澶氬啀绛夊灏戞绉掞紱瓒呰繃灏辫瀹氱‘瀹炶瀹屼簡锛屽崟鐙€佸嚭鍘?hold_ms = 1200
+# 连续多久像人声才认为开始说话（毫秒）
+min_speech_ms = 160
+# 连续多久没声音才认为一句说完（毫秒）。
+# 调小 = 字幕出得更快，但容易把主播换气的停顿当句末而把句子切碎；
+# 调大 = 句子更完整、翻译更准，代价是字幕晚一点出来
+min_silence_ms = 700
+# 一句话最长多少秒，超过就强制切一刀，避免字幕迟迟不出
+max_segment_seconds = 12.0
+# 每句前后各留多少毫秒，防止吃掉字头字尾
+padding_ms = 240
+# 比这还短的碎片直接丢弃（过滤咳嗽、键盘、鼠标声）
+min_segment_seconds = 0.4
+# 【关键项】短于这个秒数的语音段先攒着，等下一句接上再一起送翻译。
+# 没有它的话「ゲームで / 遊ばせて / いただこうと / 思い」这种一整句
+# 会被拆成四段分别翻译，意思全乱。调大 = 句子更完整，但字幕更晚出来。
+merge_seconds = 2.5
+# 攒着的短句最多再等多少毫秒；超过就认定确实说完了，单独送出去
+hold_ms = 1200
 
 
 [asr]
-# faster-whisper 妯″瀷銆?GB 鏄惧瓨鎺ㄨ崘 large-v3-turbo锛堝揩涓斿噯锛夛紱
-# 鏄惧瓨绱у紶鎴栨兂鏇村揩鍙互鐢?medium / small锛涙樉瀛樺緢瓒冲彲浠ヨ瘯 large-v3
+# faster-whisper 模型。8GB 显存推荐 large-v3-turbo（快且准）；
+# 显存紧张或想更快可以用 medium / small；显存很足可以试 large-v3
 model = "large-v3-turbo"
-# auto锛堝厛璇?cuda 澶辫触閫€ cpu锛墊 cuda | cpu
+# auto（先试 cuda 失败退 cpu）| cuda | cpu
 device = "auto"
 # auto | float16 | int8_float16 | int8 | float32
 compute_type = "auto"
-# 璇嗗埆璇█锛屾棩璇洿鎾氨淇濇寔 ja
+# 识别语言，日语直播就保持 ja
 language = "ja"
-# 璐績瑙ｇ爜锛屾渶蹇紱鏀规垚 2~5 浼氱◢鍑嗕竴鐐逛絾鏇存參
+# 贪心解码，最快；改成 2~5 会稍准一点但更慢
 beam_size = 1
-# 鎻愮ず璇嶏細鎶婂父鐪嬬殑涓绘挱鍚嶃€佷笓鏈夊悕璇嶅啓杩涘幓锛屽彲浠ョǔ瀹氳繖浜涜瘝鐨勫啓娉曪紝渚嬪
-# initial_prompt = "銉涖儹銉┿偆銉栥€佸厧鐢般伜銇撱倝銆併仌銇忋倝銇裤亾銆佹槦琛椼仚銇勩仜銇勩€?
+# 提示词：把常看的主播名、专有名词写进去，可以稳定这些词的写法，例如
+# initial_prompt = "ホロライブ、兎田ぺこら、さくらみこ、星街すいせい。"
 initial_prompt = ""
-# 鍥藉唴缃戠粶涓嬭浇妯″瀷鎱㈢殑璇濓紝鍙栨秷娉ㄩ噴鐢ㄩ暅鍍?# hf_endpoint = "https://hf-mirror.com"
+# 国内网络下载模型慢的话，取消注释用镜像
+# hf_endpoint = "https://hf-mirror.com"
 hf_endpoint = ""
-# 绛夊緟璇嗗埆鐨勭墖娈甸槦鍒楅暱搴︼紝璇嗗埆璺熶笉涓婃椂浼氫涪寮冩渶鏃х殑
+# 等待识别的片段队列长度，识别跟不上时会丢弃最旧的
 max_queue = 8
 
 
 [translate]
-# 鍥涚鍚庣锛岄€変竴涓細
-#   openai    = 浠讳綍 OpenAI 鍏煎鎺ュ彛 鈥斺€?鍥藉唴澶栫粷澶у鏁板巶鍟嗛兘灞炰簬杩欎竴绫伙紝瑙佷笅闈㈤€熸煡琛?#   anthropic = Anthropic Claude锛堟帴鍙ｆ牸寮忓拰 OpenAI 涓嶅悓锛屽崟鐙疄鐜帮級
+# 四种后端，选一个：
+#   openai    = 任何 OpenAI 兼容接口 —— 国内外绝大多数厂商都属于这一类，见下面速查表
+#   anthropic = Anthropic Claude（接口格式和 OpenAI 不同，单独实现）
 #   gemini    = Google Gemini
-#   none      = 涓嶇炕璇戯紝鍙樉绀烘棩鏂囧師鏂?provider = "openai"
+#   none      = 不翻译，只显示日文原文
+provider = "openai"
 
-# 鐩爣璇█銆傚啓鍏蜂綋涓€鐐硅川閲忔洿濂斤紝渚嬪 "绠€浣撲腑鏂? / "绻侀珨涓枃" / "English"
-target_language = "绠€浣撲腑鏂?
+# 目标语言。写具体一点质量更好，例如 "简体中文" / "繁體中文" / "English"
+target_language = "简体中文"
 
-# --- provider = "openai"锛堥粯璁よ蛋 DeepSeek锛?--
-# base_url / model 鐣欑┖ = https://api.deepseek.com/v1 + deepseek-chat
+# --- provider = "openai"（默认走 DeepSeek）---
+# base_url / model 留空 = https://api.deepseek.com/v1 + deepseek-chat
 base_url = ""
 model = ""
 
-# 涓绘祦鍘傚晢閫熸煡锛氫笅闈㈣繖浜涢兘鐢?provider = "openai"锛屽彧鏀?base_url + model 鍗冲彲
+# 主流厂商速查：下面这些都用 provider = "openai"，只改 base_url + model 即可
 #   DeepSeek       https://api.deepseek.com/v1                         deepseek-chat
 #   OpenAI         https://api.openai.com/v1                           gpt-4o-mini
-#   鏈堜箣鏆楅潰 Kimi   https://api.moonshot.cn/v1                          moonshot-v1-8k
-#   鏅鸿氨 GLM       https://open.bigmodel.cn/api/paas/v4                 glm-4-flash
-#   閫氫箟鍗冮棶        https://dashscope.aliyuncs.com/compatible-mode/v1    qwen-plus
-#   纭呭熀娴佸姩        https://api.siliconflow.cn/v1                        Qwen/Qwen2.5-7B-Instruct
+#   月之暗面 Kimi   https://api.moonshot.cn/v1                          moonshot-v1-8k
+#   智谱 GLM       https://open.bigmodel.cn/api/paas/v4                 glm-4-flash
+#   通义千问        https://dashscope.aliyuncs.com/compatible-mode/v1    qwen-plus
+#   硅基流动        https://api.siliconflow.cn/v1                        Qwen/Qwen2.5-7B-Instruct
 #   OpenRouter     https://openrouter.ai/api/v1                         google/gemini-2.0-flash-001
 #   Grok (xAI)     https://api.x.ai/v1                                  grok-2-latest
 #   Groq           https://api.groq.com/openai/v1                       llama-3.3-70b-versatile
 #   Mistral        https://api.mistral.ai/v1                            mistral-small-latest
-#   鐏北鏂硅垷        https://ark.cn-beijing.volces.com/api/v3             浣犵殑鎺ュ叆鐐?ID
-#   鏈湴 ollama     http://localhost:11434/v1                            qwen2.5:7b
+#   火山方舟        https://ark.cn-beijing.volces.com/api/v3             你的接入点 ID
+#   本地 ollama     http://localhost:11434/v1                            qwen2.5:7b
 
-# --- provider = "anthropic"锛圕laude锛?--
-# base_url 鐣欑┖ = https://api.anthropic.com
-# model   鐣欑┖ = claude-3-5-haiku-latest
+# --- provider = "anthropic"（Claude）---
+# base_url 留空 = https://api.anthropic.com
+# model   留空 = claude-3-5-haiku-latest
 
 # --- provider = "gemini" ---
-# base_url 鐣欑┖ = https://generativelanguage.googleapis.com/v1beta
-# model   鐣欑┖ = gemini-2.5-flash
+# base_url 留空 = https://generativelanguage.googleapis.com/v1beta
+# model   留空 = gemini-2.5-flash
 
-# API key銆備袱绉嶅～娉曪紝閫変竴涓細
-#   1) 鐣欑┖锛屾敼鐢ㄧ幆澧冨彉閲忥紙鎺ㄨ崘锛宬ey 涓嶈惤杩涗换浣曟枃浠讹級鈥斺€?瑙佷笅闈㈢殑 api_key_env
-#   2) 鐩存帴濉湪杩欏効銆傚～浜嗕箣鍚庯細鏈枃浠惰鍙﹀瓨涓?config.toml锛堥偅涓枃浠跺悕宸插啓杩?.gitignore锛夛紝
-#      骞朵笖鍒妸濉簡 key 鐨?config.toml 鎻愪氦涓婂幓鎴栧彂缁欏埆浜?api_key = ""
-# 涔熷彲浠ョ暀绌恒€佹敼鐢ㄧ幆澧冨彉閲忥紙浼樺厛绾т綆浜庝笂闈㈢殑 api_key锛夛細
+# API key。两种填法，选一个：
+#   1) 留空，改用环境变量（推荐，key 不落进任何文件）—— 见下面的 api_key_env
+#   2) 直接填在这儿。填了之后：本文件请另存为 config.toml（那个文件名已写进 .gitignore），
+#      并且别把填了 key 的 config.toml 提交上去或发给别人
+api_key = ""
+# 也可以留空、改用环境变量（优先级低于上面的 api_key）：
 #   PowerShell:  $env:LIVETRANS_API_KEY = "sk-..."
 #   bash:        export LIVETRANS_API_KEY=sk-...
 api_key_env = "LIVETRANS_API_KEY"
 
 timeout = 20.0
-# 甯︿笂鍓嶅嚑鍙ュ師鏂?璇戞枃浣滀负涓婁笅鏂囷紝缈昏瘧鏇磋繛璐紱璁句负 0 鍏抽棴
+# 带上前几句原文+译文作为上下文，翻译更连贯；设为 0 关闭
 context_lines = 2
-# 杩藉姞鍒扮郴缁熸彁绀鸿瘝鍚庨潰鐨勯澶栬姹傦紝姣斿
-# extra_prompt = "杩欐槸娓告垙瀹炲喌锛屾父鎴忓悕鏄€屽師绁炪€嶏紝瑙掕壊鍚嶄繚鐣欐棩鏂囥€?
+# 追加到系统提示词后面的额外要求，比如
+# extra_prompt = "这是游戏实况，游戏名是「原神」，角色名保留日文。"
 extra_prompt = ""
 retries = 2
 
 
 [ui]
-# 涓枃瀛楀箷瀛楀彿锛堝儚绱狅級
+# 中文字幕字号（像素）
 font_size = 26
-# 鏃ユ枃鍘熸枃瀛楀彿锛泂how_original = false 鏃朵笉鏄剧ず
+# 日文原文字号；show_original = false 时不显示
 original_font_size = 18
-# 瀛楀箷鏉胯儗鏅笉閫忔槑搴?0~1
+# 字幕板背景不透明度 0~1
 opacity = 0.82
-# 瀛楀箷鏉垮搴﹀崰灞忓箷瀹藉害鐨勬瘮渚?width_ratio = 0.86
+# 字幕板宽度占屏幕宽度的比例
+width_ratio = 0.86
 show_original = true
-# 榧犳爣绌块€忥細寮€鍚悗鐐瑰瓧骞曚笉浼氭尅浣忎笅闈㈢殑鐩存挱绐楀彛锛堟帹鑽愬紑锛?# 鎯虫嫋鍔ㄥ瓧骞曚綅缃椂锛岀敤鎵樼洏鑿滃崟涓存椂鍏虫帀瀹?click_through = true
+# 鼠标穿透：开启后点字幕不会挡住下面的直播窗口（推荐开）
+# 想拖动字幕位置时，用托盘菜单临时关掉它
+click_through = true
 # bottom | top
 position = "bottom"
-# 璺濆睆骞曞簳閮?椤堕儴鐨勭暀鐧斤紙鍍忕礌锛?margin = 80
-# 鍚屽睆鏄剧ず鍑犺
+# 距屏幕底部/顶部的留白（像素）
+margin = 80
+# 同屏显示几行
 max_lines = 4
-
