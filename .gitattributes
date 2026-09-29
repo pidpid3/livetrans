@@ -1,0 +1,16 @@
+# 让 git 统一按文本处理，仓库里一律存 LF
+* text=auto
+
+# Windows 批处理必须用 CRLF —— cmd 对 LF-only 的 .bat 解析不可靠，
+# 而这个项目已经在 .bat 上踩过一次编码的坑，这里把换行也钉死。
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 二进制文件不要做换行转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.onnx binary
+*.bin binary
