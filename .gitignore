@@ -1,0 +1,29 @@
+# 虚拟环境
+.venv/
+venv/
+
+# 本地配置（可能含 API key）
+config.toml
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# 模型缓存
+models/
+*.bin
+*.onnx
+
+# 临时文件
+*.log
+_probe.py
+
+# 字幕窗的外观 + VAD 记忆（运行时自动生成，因人而异）
+.livetrans_state.json
+.livetrans_ui.json
+
+# 给 GitHub 用的干净副本（从主目录复制出去的，别重复提交）
+publish/
